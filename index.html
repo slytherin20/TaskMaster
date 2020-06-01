@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TaskMaster</title>
+    <link href="main.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<nav>
+    <span>TaskMaster</span>
+</nav>
+<div id="container">
+    <div id="side-col">
+        <div id="profile">
+           <label for="file"><img src="http://placehold.it/75X75" id="img"/>
+              </label>
+            <input type="file"  id="file" />
+        </div>
+        <div id="labels"></div>
+    </div>
+    <div id="tasks">
+        <div id="task-adder">
+            <input id="add-task" placeholder="Add Task" aria-placeholder="Add Task">
+            <span>Priority:<button id="high-priority">High</button>
+            <button id="medium-priority">Medium</button>
+            <button id="low-priority">Low</button>
+            </span>
+            <input type="text" id="custom-label" placeholder="eg.Work/School" aria-placeholder="EG.Work/School"/>
+            <input type="color" id="color-picker"/>
+            <button id="add" onclick="addTaskObject()">Add</button>
+        </div>
+        <div id="main-col"></div>
+        <div id="add-col"></div>
+    </div>
+</div>
+</body>
+<script src="main.js" type="text/javascript" rel="script"></script>
+</html>

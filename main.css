@@ -1,0 +1,28 @@
+body{
+    margin:0;
+
+}
+#container{
+    display:flex;
+    flex-direction:row;
+    align-items: center;
+    justify-content: center;
+}
+#side-col{
+    flex: 1;
+    background-color: darkslategray;
+}
+#tasks{
+    flex:1;
+    background-color: crimson;
+}
+#file{
+    display:none;
+}
+#img{
+    border-radius: 50%;
+}
+#task-adder{
+    display:flex;
+    flex-direction: column;
+}
