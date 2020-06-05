@@ -10,26 +10,43 @@
     <span>TaskMaster</span>
 </nav>
 <div id="container">
+    <!------Side bar to show various labels available  ------>
     <div id="side-col">
         <div id="profile">
            <label for="file"><img src="http://placehold.it/75X75" id="img"/>
               </label>
             <input type="file"  id="file" />
         </div>
-        <div id="labels"></div>
+        <div id="labels">
+            <h3>Priority Level</h3>
+            <button id="high" onclick="highPriorityTask()" style="background-color: red">High</button>
+            <button id="medium" onclick="mediumPriorityTask()" style="background-color:orange">Medium</button>
+            <button id="low" onclick="lowPriorityTask()" style="background-color: blue">Low</button>
+            <h3>Custom labels</h3>
+                <ul id="custom-labels">
+
+                </ul>
+
+        </div>
     </div>
+    <!---- Task format---------------->
     <div id="tasks">
         <div id="task-adder">
             <input id="add-task" placeholder="Add Task" aria-placeholder="Add Task">
-            <span>Priority:<button id="high-priority">High</button>
-            <button id="medium-priority">Medium</button>
-            <button id="low-priority">Low</button>
+            <span>Priority:<button id="high-priority" style="background-color: red">High</button>
+            <button id="medium-priority" style="background-color:orange">Medium</button>
+            <button id="low-priority" style="background-color: blue">Low</button>
             </span>
             <input type="text" id="custom-label" placeholder="eg.Work/School" aria-placeholder="EG.Work/School"/>
             <input type="color" id="color-picker"/>
             <button id="add" onclick="addTaskObject()">Add</button>
         </div>
-        <div id="main-col"></div>
+        <!-----------Showing To do list------>
+        <div id="main-col">
+            <ul id="append-task"></ul>
+        </div>
+
+        <!--------- Showing Done tasks ----------->
         <div id="add-col"></div>
     </div>
 </div>

@@ -26,3 +26,7 @@ body{
     display:flex;
     flex-direction: column;
 }
+#labels{
+    display:flex;
+    flex-direction: column;
+}
