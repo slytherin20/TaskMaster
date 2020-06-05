@@ -51,7 +51,7 @@ function addTaskObject(){
         prioritylevel:priority,
     };
     //Adding custom label to the list.
-    if(customLabel){
+    if(customLabel.value){
      obj = customlabelRender(customLabel,obj);
 
      //Checking if it already exists.
@@ -93,15 +93,15 @@ function customlabelRender(customlabel,obj){
 //Show labels on side bar
 function renderLabels(customLabels){
   const labelList = customLabels.map(el=>{
-          createLabelList(el);
+      if(el.label)
+          return createLabelList(el);
   });
   const joinedList = labelList.join("");
   labelBlock.innerHTML = joinedList;
 }
 //Creating label list
 function createLabelList(element){
-    
-    return `<button style="background-color: ${element.color}" >${element.label}</button>
+    return `<button style="background-color: ${element.color}" onclick="showSameLabelTask('${element.label}')">${element.label}</button>
     `
 }
 
@@ -112,8 +112,8 @@ function createPriorityList(element){
        <span>${element.todo}</span>
       <button style="background-color: ${findColor(element.label)}">${element.label}</button>
       
-        <button class="task-done"  onclick="TaskDone()">Done</button>
-        <button class="Delete-task" onclick="DeleteTask()">Delete</button>
+        <button class="task-done"  onclick="TaskDone(${element})">Done</button>
+        <button class="Delete-task" onclick="DeleteTask(${element})">Delete</button>
 
 
 </li>`
@@ -162,17 +162,19 @@ function lowPriorityTask(){
 function renderingTask(element){
     var priority;
     var color;
-    if(element.prioritylevel===1)
-    {priority="High";
-     color="red"}
-    else if(element.prioritylevel===2)
-    { priority = "Medium";
-    color="orange"}
-    else if(element.prioritylevel===3) {
-        priority = "Low";
-        color = "blue"
-    }
-    return `<li>
+    if(element.prioritylevel){
+        if(element.prioritylevel===1)
+        {priority="High";
+            color="red"}
+        else if(element.prioritylevel===2)
+        { priority = "Medium";
+            color="orange"}
+        else if(element.prioritylevel===3) {
+            priority = "Low";
+            color = "blue"
+        }
+        if(element.label){
+            return `<li>
         <span>${element.todo}</span>
         <button style="background-color:${findColor(element.label)}">${element.label}</button>
         <button class="priority" style="background-color: ${color}">${priority}</button>
@@ -180,6 +182,36 @@ function renderingTask(element){
         <button class="Delete-task" onclick="DeleteTask()">Delete</button>
 
 </li>`
+        }
+        else{
+            return `<li>
+        <span>${element.todo}</span>
+        <button class="priority" style="background-color: ${color}">${priority}</button>
+        <button class="task-done"  onclick="TaskDone()">Done</button>
+        <button class="Delete-task" onclick="DeleteTask()">Delete</button>
+
+</li>`
+        }
+    }
+    else{
+        if(element.label){
+            return `<li>
+        <span>${element.todo}</span>
+        <button style="background-color:${findColor(element.label)}">${element.label}</button>
+        <button class="task-done"  onclick="TaskDone()">Done</button>
+        <button class="Delete-task" onclick="DeleteTask()">Delete</button>
+
+</li>`
+        }
+        else{
+            return `<li>
+        <span>${element.todo}</span>
+        <button class="task-done"  onclick="TaskDone()">Done</button>
+        <button class="Delete-task" onclick="DeleteTask()">Delete</button>
+
+</li>`
+        }
+    }
 }
 
 //Showing all tasks
@@ -193,10 +225,26 @@ function renderTasks(arr){
 
 //Finding corresponding label to a color
 function findColor(label){
-    const color = customLabels.map(el=>{
-       if(el.label===label)
-           return el.color
-    });
-    return color[1]
+ for(let x of customLabels){
+     if(x.label===label){
+         return x.color
+     }
+ }
+}
+
+//Showing same label task.
+function showSameLabelTask(label){
+    if(label==='All'){
+       renderTasks(addItems);
+    }
+    else{
+        const show = addItems.map(el=>{
+            if(el.label===label){
+                return renderingTask(el);
+            }
+        });
+        showTask.innerHTML = show.join("")
+    }
+
 }
 
