@@ -21,9 +21,11 @@ const mediumPriority = document.querySelector("#medium-priority");
 const lowPriority = document.querySelector("#low-priority");
 const labelBlock = document.querySelector("#custom-labels");
 const showTask = document.querySelector("#main-col #append-task");
+const doneTasks = document.querySelector("#add-col #taskdone");
 let addItems=[];
 let priority =0;
 let customLabels=[{label:"All",color:"Red"}];
+let doneTask = [];
 
 //Displaying labels
 renderLabels(customLabels);
@@ -45,34 +47,39 @@ lowPriority.onclick = function(){
 
 //Adding task
 function addTaskObject(){
-    var flag=-1;
-    var obj = {
-        todo:task.value,
-        prioritylevel:priority,
-    };
-    //Adding custom label to the list.
-    if(customLabel.value){
-     obj = customlabelRender(customLabel,obj);
+    if(task.value){
+        var flag=-1;
+        var obj = {
+            todo:task.value,
+            prioritylevel:priority,
+            time: new Date()
+        };
+        //Adding custom label to the list.
+        if(customLabel.value){
+            obj = customlabelRender(customLabel,obj);
 
-     //Checking if it already exists.
-     customLabels.map(el=>{
-        if(el.label===obj.label){
-            flag=1;
+            //Checking if it already exists.
+            customLabels.map(el=>{
+                if(el.label===obj.label){
+                    flag=1;
+                }
+            });
+            if(flag===-1) customLabels.push({label:obj.label,color:obj.color});
+
         }
-     });
-     if(flag===-1) customLabels.push({label:obj.label,color:obj.color});
 
+        renderLabels(customLabels);
+        addItems.push({todo:obj.todo,prioritylevel: obj.prioritylevel,label:obj.label,time:obj.time});
+        console.table(addItems);
+        console.table(customLabels);
+        //Displaying all the tasks
+        renderTasks(addItems);
+
+        //Resetting priority to zero before next task
+        priority=0;
+    }else{
+        window.alert("Please add a task value and Try again!!");
     }
-
-    renderLabels(customLabels);
-    addItems.push({todo:obj.todo,prioritylevel: obj.prioritylevel,label:obj.label});
-    console.table(addItems);
-    console.table(customLabels);
-    //Displaying all the tasks
-    renderTasks(addItems);
-
-    //Resetting priority to zero before next task
-    priority=0;
 }
 
 //Custom label addition to list
@@ -96,8 +103,7 @@ function renderLabels(customLabels){
       if(el.label)
           return createLabelList(el);
   });
-  const joinedList = labelList.join("");
-  labelBlock.innerHTML = joinedList;
+  labelBlock.innerHTML = labelList.join("");
 }
 //Creating label list
 function createLabelList(element){
@@ -110,10 +116,9 @@ function createPriorityList(element){
     if(element.label){
         return `<li>
        <span>${element.todo}</span>
-      <button style="background-color: ${findColor(element.label)}">${element.label}</button>
-      
-        <button class="task-done"  onclick="TaskDone(${element})">Done</button>
-        <button class="Delete-task" onclick="DeleteTask(${element})">Delete</button>
+        <button style="background-color: ${findColor(element.label)}">${element.label}</button>
+        <button class="task-done" onclick="TaskDone(${element.time.valueOf()},'${element.label}')">Done</button>
+        <button class="Delete-task" onclick="deleteTask(${element.time.valueOf()},'${element.label}')">Delete</button>
 
 
 </li>`
@@ -121,8 +126,8 @@ function createPriorityList(element){
     else{
         return `<li>
        <span>${element.todo}</span>
-        <button class="task-done"  onclick="TaskDone()">Done</button>
-        <button class="Delete-task" onclick="DeleteTask()">Delete</button>
+        <button class="task-done" onclick="TaskDone(${element.time.valueOf()},'${element.label}')">Done</button>
+        <button class="Delete-task" onclick="deleteTask(${element.time.valueOf()},'${element.label}')">Delete</button>
 
 
 </li>`
@@ -134,7 +139,6 @@ function highPriorityTask(){
     const priorityList = addItems.map(el=>{
        if(el.prioritylevel===1) return createPriorityList(el);
     });
-    console.log(priorityList);
     const joinedPriorityList = priorityList.join("");
     showTask.innerHTML =joinedPriorityList
 
@@ -162,6 +166,7 @@ function lowPriorityTask(){
 function renderingTask(element){
     var priority;
     var color;
+    var obj = JSON.stringify(element);
     if(element.prioritylevel){
         if(element.prioritylevel===1)
         {priority="High";
@@ -178,8 +183,8 @@ function renderingTask(element){
         <span>${element.todo}</span>
         <button style="background-color:${findColor(element.label)}">${element.label}</button>
         <button class="priority" style="background-color: ${color}">${priority}</button>
-        <button class="task-done"  onclick="TaskDone()">Done</button>
-        <button class="Delete-task" onclick="DeleteTask()">Delete</button>
+        <button class="task-done" onclick="TaskDone(${element.time.valueOf()},'${element.label}')">Done</button>
+        <button class="Delete-task" onclick="deleteTask(${element.time.valueOf()},'${element.label}')">Delete</button>
 
 </li>`
         }
@@ -187,8 +192,8 @@ function renderingTask(element){
             return `<li>
         <span>${element.todo}</span>
         <button class="priority" style="background-color: ${color}">${priority}</button>
-        <button class="task-done"  onclick="TaskDone()">Done</button>
-        <button class="Delete-task" onclick="DeleteTask()">Delete</button>
+        <button class="task-done" onclick="TaskDone(${element.time.valueOf()},'${element.label}')">Done</button>
+        <button class="Delete-task" onclick="deleteTask(${element.time.valueOf()},'${element.label}')">Delete</button>
 
 </li>`
         }
@@ -198,16 +203,16 @@ function renderingTask(element){
             return `<li>
         <span>${element.todo}</span>
         <button style="background-color:${findColor(element.label)}">${element.label}</button>
-        <button class="task-done"  onclick="TaskDone()">Done</button>
-        <button class="Delete-task" onclick="DeleteTask()">Delete</button>
+        <button class="task-done"  onclick="TaskDone(${element.time.valueOf()},'${element.label}')">Done</button>
+        <button class="Delete-task" onclick="deleteTask(${element.time.valueOf()},'${element.label}')">Delete</button>
 
 </li>`
         }
         else{
             return `<li>
         <span>${element.todo}</span>
-        <button class="task-done"  onclick="TaskDone()">Done</button>
-        <button class="Delete-task" onclick="DeleteTask()">Delete</button>
+        <button class="task-done" onclick="TaskDone(${element.time.valueOf()},'${element.label}')">Done</button>
+        <button class="Delete-task" onclick="deleteTask(${element.time.valueOf()},'${element.label}')">Delete</button>
 
 </li>`
         }
@@ -233,18 +238,91 @@ function findColor(label){
 }
 
 //Showing same label task.
-function showSameLabelTask(label){
-    if(label==='All'){
-       renderTasks(addItems);
+function showSameLabelTask(label) {
+    if (label === 'All') {
+        renderTasks(addItems);
     }
-    else{
-        const show = addItems.map(el=>{
-            if(el.label===label){
+    else {
+        const show = addItems.map(el => {
+            if (el.label === label) {
                 return renderingTask(el);
             }
         });
         showTask.innerHTML = show.join("")
     }
+}
+
+//Done task selection
+function TaskDone(date,label){
+    var count = countItems(label);
+    for(let i=0;i<addItems.length;i++){
+        if(date===addItems[i].time.valueOf()) {
+            if(count===1){
+                removeLabel(label);
+                renderLabels(customLabels);
+            }
+            doneTask.push(addItems[i]);
+            addItems.splice(i,1);
+            renderTasks(addItems);
+            renderDoneTask();
+            break;
+        }
+    }
+}
+
+//Deleteing a task.
+function deleteTask(date,label){
+    var count = countItems(label);
+    for(let i=0;i<addItems.length;i++){
+        if(date===addItems[i].time.valueOf()) {
+            if(count===1){
+                removeLabel(label);
+                renderLabels(customLabels);
+            }
+            addItems.splice(i,1);
+            renderTasks(addItems);
+            break;
+        }
+    }
+}
+
+//Finding number of objects belonging to same label.
+function countItems(label){
+    var c=0;
+    for(let x of addItems){
+        if(x.label==label) c=c+1;
+    }
+    return c;
+}
+
+//Removing Label from customlabelList.
+function removeLabel(label){
+    for(let i=0;i<customLabels.length;i++){
+        if(customLabels[i].label==label){
+            customLabels.splice(i,1);
+            break;
+        }
+    }
+}
+
+//Rendering Completed Tasks
+
+function renderDoneTask(){
+    const done = doneTask.map(el=>{
+        return `<li>${el.todo}
+<button onclick="doneTaskDelete(${el.time.valueOf()})">Delete</button></li>`
+    });
+    doneTasks.innerHTML = done.join("")
 
 }
 
+//Deleting completed task.
+function doneTaskDelete(time){
+    for(let i=0;i<doneTask.length;i++){
+        if(doneTask[i].time.valueOf()===time){
+            doneTask.splice(i,1);
+            renderDoneTask();
+            return;
+        }
+    }
+}

@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>TaskMaster</title>
-    <link href="main.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+   <!-- <link href="main.css" type="text/css" rel="stylesheet">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
 <nav>
@@ -30,24 +37,37 @@
         </div>
     </div>
     <!---- Task format---------------->
-    <div id="tasks">
-        <div id="task-adder">
-            <input id="add-task" placeholder="Add Task" aria-placeholder="Add Task">
-            <span>Priority:<button id="high-priority" style="background-color: red">High</button>
-            <button id="medium-priority" style="background-color:orange">Medium</button>
-            <button id="low-priority" style="background-color: blue">Low</button>
+    <div class="jumbotron">
+            <div id="task-adder">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="add-task" placeholder="Add Task" aria-placeholder="Add Task"/>
+                </div>
+                <span>Priority:(optional)<button id="high-priority"  type="button" class="btn btn-danger">High</button>
+            <button id="medium-priority" type="button" class="btn btn-warning">Medium</button>
+            <button id="low-priority"  type="button" class="btn btn-primary">Low</button>
             </span>
-            <input type="text" id="custom-label" placeholder="eg.Work/School" aria-placeholder="EG.Work/School"/>
-            <input type="color" id="color-picker"/>
-            <button id="add" onclick="addTaskObject()">Add</button>
-        </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <input type="color" id="color-picker"  class="btn btn-light">
+                    </div>
+                    <input type="text" class="form-control" id="custom-label" placeholder="Add optional custom label eg.Work/School" aria-placeholder="EG.Work/School" aria-placeholder="EG.Work/School"/>
+                </div>
+
+                <button id="add" type="button" class="btn btn-dark" onclick="addTaskObject()">Add</button>
+            </div>
+    </div>
         <!-----------Showing To do list------>
         <div id="main-col">
-            <ul id="append-task"></ul>
+            <h2>Pending Task</h2>
+            <ul id="append-task">
+            </ul>
         </div>
 
         <!--------- Showing Done tasks ----------->
-        <div id="add-col"></div>
+        <div id="add-col">
+            <h2>Completed Task</h2>
+            <ul id="taskdone"></ul>
+        </div>
     </div>
 </div>
 </body>
