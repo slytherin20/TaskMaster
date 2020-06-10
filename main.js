@@ -24,7 +24,7 @@ const showTask = document.querySelector("#main-col #append-task");
 const doneTasks = document.querySelector("#add-col #taskdone");
 let addItems=[];
 let priority =0;
-let customLabels=[{label:"All",color:"Red"}];
+let customLabels=[{label:"All",color:"#d71627"}];
 let doneTask = [];
 
 //Displaying labels
@@ -43,6 +43,18 @@ mediumPriority.onclick = function(){
 lowPriority.onclick = function(){
     priority=3;
     console.log(priority);
+};
+
+//Changing color of color button
+color.oninput = function(){
+    color.style.backgroundColor = `${color.value}`;
+    color.style.color = `${color.value}`;
+};
+
+
+//Showing color field description
+color.onmouseover = function(){
+    color.title = "Choose color for the custom label."
 };
 
 //Adding task
@@ -107,7 +119,7 @@ function renderLabels(customLabels){
 }
 //Creating label list
 function createLabelList(element){
-    return `<button style="background-color: ${element.color}" onclick="showSameLabelTask('${element.label}')">${element.label}</button>
+    return `<button class="btn mb-1" style="background-color: ${element.color}" onclick="showSameLabelTask('${element.label}')">${element.label}</button>
     `
 }
 
@@ -116,7 +128,8 @@ function createPriorityList(element){
     if(element.label){
         return `<li>
        <span>${element.todo}</span>
-        <button style="background-color: ${findColor(element.label)}">${element.label}</button>
+        <button class='btn-sm' style=" background-color: white;
+  color: black; border:2px solid ${findColor(element.label)}">${element.label}</button>
         <button class="task-done" onclick="TaskDone(${element.time.valueOf()},'${element.label}')">Done</button>
         <button class="Delete-task" onclick="deleteTask(${element.time.valueOf()},'${element.label}')">Delete</button>
 
@@ -181,8 +194,10 @@ function renderingTask(element){
         if(element.label){
             return `<li>
         <span>${element.todo}</span>
-        <button style="background-color:${findColor(element.label)}">${element.label}</button>
-        <button class="priority" style="background-color: ${color}">${priority}</button>
+        <button class='btn-sm' style=" background-color: white;
+  color: black; border:2px solid ${findColor(element.label)}">${element.label}</button>
+        <button class="priority btn-sm" style=" background-color: white;
+  color: black; border:2px solid ${color}" >${priority}</button>
         <button class="task-done" onclick="TaskDone(${element.time.valueOf()},'${element.label}')">Done</button>
         <button class="Delete-task" onclick="deleteTask(${element.time.valueOf()},'${element.label}')">Delete</button>
 
@@ -191,7 +206,8 @@ function renderingTask(element){
         else{
             return `<li>
         <span>${element.todo}</span>
-        <button class="priority" style="background-color: ${color}">${priority}</button>
+        <button class="priority btn-sm" style=" background-color: white;
+  color: black; border:2px solid ${color}">${priority}</button>
         <button class="task-done" onclick="TaskDone(${element.time.valueOf()},'${element.label}')">Done</button>
         <button class="Delete-task" onclick="deleteTask(${element.time.valueOf()},'${element.label}')">Delete</button>
 
@@ -202,7 +218,8 @@ function renderingTask(element){
         if(element.label){
             return `<li>
         <span>${element.todo}</span>
-        <button style="background-color:${findColor(element.label)}">${element.label}</button>
+        <button class="priority btn-sm" style=" background-color: white;
+  color: black; border:2px solid ${findColor(element.label)}">${element.label}</button>
         <button class="task-done"  onclick="TaskDone(${element.time.valueOf()},'${element.label}')">Done</button>
         <button class="Delete-task" onclick="deleteTask(${element.time.valueOf()},'${element.label}')">Delete</button>
 

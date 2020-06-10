@@ -9,65 +9,77 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-   <!-- <link href="main.css" type="text/css" rel="stylesheet">-->
+   <link href="main.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
-<nav>
+<nav class="navbar navbar-dark bg-dark" style="color:white;">
+    <!-- Navbar content -->
     <span>TaskMaster</span>
 </nav>
-<div id="container">
+<div class="container">
     <!------Side bar to show various labels available  ------>
-    <div id="side-col">
-        <div id="profile">
-           <label for="file"><img src="http://placehold.it/75X75" id="img"/>
+    <div class="row row-cols-2">
+    <div id="side-col" class="col-4">
+        <div id="profile" class="d-flex flex-column justify-content-center align-items-center">
+           <label for="file"><img src="http://placehold.it/75X75"  title = "Upload your picture" id="img"/>
               </label>
-            <input type="file"  id="file" />
+            <input type="file" id="file"/>
         </div>
+        <br>
+        <br>
         <div id="labels">
-            <h3>Priority Level</h3>
-            <button id="high" onclick="highPriorityTask()" style="background-color: red">High</button>
-            <button id="medium" onclick="mediumPriorityTask()" style="background-color:orange">Medium</button>
-            <button id="low" onclick="lowPriorityTask()" style="background-color: blue">Low</button>
-            <h3>Custom labels</h3>
-                <ul id="custom-labels">
+            <h4 class="text-light border-bottom border-success">Priority Level</h4>
+            <button id="high"  class="btn btn-danger" onclick="highPriorityTask()">High</button>
+            <button id="medium" class="btn btn-warning" onclick="mediumPriorityTask()">Medium</button>
+            <button id="low" class ="btn btn-primary" onclick="lowPriorityTask()">Low</button>
+            <br>
+            <br>
+            <h4 class="text-light border-bottom border-info">Custom labels</h4>
+                <ul id="custom-labels" class="d-flex flex-column">
 
                 </ul>
 
         </div>
     </div>
     <!---- Task format---------------->
-    <div class="jumbotron">
-            <div id="task-adder">
+            <div class="col-8">
+            <div id="task-adder" class="jumbotron">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="add-task" placeholder="Add Task" aria-placeholder="Add Task"/>
                 </div>
-                <span>Priority:(optional)<button id="high-priority"  type="button" class="btn btn-danger">High</button>
+                <div class=".d-sm-flex flex-row justify-content-center">
+                    <p>Priority(optional):</p>
+                    <button id="high-priority"  type="button" class="btn btn-danger">High</button>
             <button id="medium-priority" type="button" class="btn btn-warning">Medium</button>
             <button id="low-priority"  type="button" class="btn btn-primary">Low</button>
-            </span>
+            </div>
+                <br>
+                <p>Custom Label(optional):</p>
                 <div class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                        <input type="color" id="color-picker"  class="btn btn-light">
+                    <input type="text"  class="form-control" id="custom-label" placeholder="Add optional custom label eg.Work/School" aria-placeholder="EG.Work/School" aria-placeholder="EG.Work/School"/>
+                    <div class="input-group-sm mb-3">
+                        <input type="color" id="color-picker"  class="btn btn-light" value="#d9d9d9">
                     </div>
-                    <input type="text" class="form-control" id="custom-label" placeholder="Add optional custom label eg.Work/School" aria-placeholder="EG.Work/School" aria-placeholder="EG.Work/School"/>
                 </div>
 
-                <button id="add" type="button" class="btn btn-dark" onclick="addTaskObject()">Add</button>
+                <button id="add" type="button" class="btn btn-dark text-right" onclick="addTaskObject()">Add</button>
             </div>
-    </div>
-        <!-----------Showing To do list------>
-        <div id="main-col">
-            <h2>Pending Task</h2>
-            <ul id="append-task">
-            </ul>
-        </div>
+                <div class="row row-cols-2 .d-flex" id="both-tasks">
+                    <!-----------Showing To do list------>
+                    <div id="main-col" class="col">
+                        <h4 class="border-bottom border-dark">Pending Task</h4>
+                        <ul id="append-task">
+                        </ul>
+                    </div>
 
-        <!--------- Showing Done tasks ----------->
-        <div id="add-col">
-            <h2>Completed Task</h2>
-            <ul id="taskdone"></ul>
-        </div>
+                    <!--------- Showing Done tasks ----------->
+                    <div id="add-col" class="col">
+                        <h4 class="border-bottom border-dark">Completed Task</h4>
+                        <ul id="taskdone"></ul>
+                    </div>
+                </div>
+    </div>
     </div>
 </div>
 </body>

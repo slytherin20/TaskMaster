@@ -1,32 +1,38 @@
-body{
-    margin:0;
-
+html,body,.container,.row{
+    height:100vh;
 }
-#container{
-    display:flex;
-    flex-direction:row;
-    align-items: center;
-    justify-content: center;
+.container{
+    margin-top: 10px;
+    margin-left:0;
+    margin-right:0;
 }
 #side-col{
-    flex: 1;
-    background-color: darkslategray;
+    background-color: #292626;
+    height: auto;
 }
-#tasks{
-    flex:1;
-    background-color: crimson;
-}
-#file{
-    display:none;
+#profile {
+    margin-top: 5%;
 }
 #img{
     border-radius: 50%;
+    height:150px;
+    width:150px;
 }
-#task-adder{
-    display:flex;
-    flex-direction: column;
+@media screen and (max-width:700px){
+    #side-col{
+        display:none;
+    }
 }
-#labels{
-    display:flex;
-    flex-direction: column;
+
+@media screen and (max-width:991px){
+    #file{
+        display:none;
+    }
+    #both-tasks{
+        display:flex;
+        flex-direction: column;
+    }
+    .row-cols-2>*{
+        max-width:100%;
+    }
 }
