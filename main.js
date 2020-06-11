@@ -57,6 +57,7 @@ color.onmouseover = function(){
     color.title = "Choose color for the custom label."
 };
 
+
 //Adding task
 function addTaskObject(){
     if(task.value){
@@ -119,30 +120,36 @@ function renderLabels(customLabels){
 }
 //Creating label list
 function createLabelList(element){
-    return `<button class="btn mb-1" style="background-color: ${element.color}" onclick="showSameLabelTask('${element.label}')">${element.label}</button>
+    return `<button class="btn mb-1" style="background-color: ${element.color}" onmouseover="title = '${element.label}'" onclick="showSameLabelTask('${element.label}')">${element.label}</button>
     `
 }
 
 //Rendering different  priority task.
 function createPriorityList(element){
     if(element.label){
-        return `<li>
+        return `<li  class="list-group-item">
        <span>${element.todo}</span>
         <button class='btn-sm' style=" background-color: white;
   color: black; border:2px solid ${findColor(element.label)}">${element.label}</button>
-        <button class="task-done" onclick="TaskDone(${element.time.valueOf()},'${element.label}')">Done</button>
-        <button class="Delete-task" onclick="deleteTask(${element.time.valueOf()},'${element.label}')">Delete</button>
+  <br>
+  <div class="done-delete"> <button class="task-done btn btn-outline-danger" onmouseover="title = 'Click when task is completed.' " onclick="TaskDone(${element.time.valueOf()},'${element.label}')"> <i class="far fa-check-square task-done"></i></button>
 
+        <button class="Delete-task btn btn-outline-danger" onmouseover="title='Click to delete task.'" onclick="deleteTask(${element.time.valueOf()},'${element.label}')"><i class="fas fa-trash-alt"></i></button>
 
+</div>
+ 
 </li>`
     }
     else{
-        return `<li>
+        return `<li  class="list-group-item">
        <span>${element.todo}</span>
-        <button class="task-done" onclick="TaskDone(${element.time.valueOf()},'${element.label}')">Done</button>
-        <button class="Delete-task" onclick="deleteTask(${element.time.valueOf()},'${element.label}')">Delete</button>
+       <br>
+       <div class="done-delete">   <button class="task-done btn btn-outline-danger" onmouseover="title = 'Click when task is completed.' " onclick="TaskDone(${element.time.valueOf()},'${element.label}')"> <i class="far fa-check-square task-done"></i></button>
 
+        <button class="Delete-task btn btn-outline-danger" onmouseover="title='Click to delete task.'" onclick="deleteTask(${element.time.valueOf()},'${element.label}')"><i class="fas fa-trash-alt"></i></button>
 
+</div>
+      
 </li>`
     }
 }
@@ -192,45 +199,63 @@ function renderingTask(element){
             color = "blue"
         }
         if(element.label){
-            return `<li>
+            return `<li class="list-group-item">
         <span>${element.todo}</span>
         <button class='btn-sm' style=" background-color: white;
   color: black; border:2px solid ${findColor(element.label)}">${element.label}</button>
         <button class="priority btn-sm" style=" background-color: white;
   color: black; border:2px solid ${color}" >${priority}</button>
-        <button class="task-done" onclick="TaskDone(${element.time.valueOf()},'${element.label}')">Done</button>
-        <button class="Delete-task" onclick="deleteTask(${element.time.valueOf()},'${element.label}')">Delete</button>
+  <br>
+  <div class="done-delete"> 
+  <button class="task-done btn btn-outline-danger"  onmouseover="title = 'Click when task is completed.' " onclick="TaskDone(${element.time.valueOf()},'${element.label}')"> <i class="far fa-check-square task-done"></i></button>
 
+  <button class="Delete-task btn btn-outline-danger" onmouseover="title='Click to delete task.'" onclick="deleteTask(${element.time.valueOf()},'${element.label}')"><i class="fas fa-trash-alt"></i></button>
+
+
+</div>
+      
 </li>`
         }
         else{
-            return `<li>
+            return `<li  class="list-group-item">
         <span>${element.todo}</span>
         <button class="priority btn-sm" style=" background-color: white;
   color: black; border:2px solid ${color}">${priority}</button>
-        <button class="task-done" onclick="TaskDone(${element.time.valueOf()},'${element.label}')">Done</button>
-        <button class="Delete-task" onclick="deleteTask(${element.time.valueOf()},'${element.label}')">Delete</button>
+  <br>
+  <div class="done-delete">  <button class="task-done btn btn-outline-danger"  onmouseover="title = 'Click when task is completed.' " onclick="TaskDone(${element.time.valueOf()},'${element.label}')"> <i class="far fa-check-square task-done"></i></button>
 
+        <button class="Delete-task btn btn-outline-danger" onmouseover="title='Click to delete task.'" onclick="deleteTask(${element.time.valueOf()},'${element.label}')"><i class="fas fa-trash-alt"></i></button>
+
+</div>
+      
 </li>`
         }
     }
     else{
         if(element.label){
-            return `<li>
+            return `<li  class="list-group-item">
         <span>${element.todo}</span>
         <button class="priority btn-sm" style=" background-color: white;
   color: black; border:2px solid ${findColor(element.label)}">${element.label}</button>
-        <button class="task-done"  onclick="TaskDone(${element.time.valueOf()},'${element.label}')">Done</button>
-        <button class="Delete-task" onclick="deleteTask(${element.time.valueOf()},'${element.label}')">Delete</button>
+  <br>
+  <div class="done-delete"> <button class="task-done btn btn-outline-danger" onmouseover="title = 'Click when task is completed.' " onclick="TaskDone(${element.time.valueOf()},'${element.label}')"> <i class="far fa-check-square task-done"></i></button>
 
+        <button class="Delete-task btn btn-outline-danger" onmouseover="title='Click to delete task.'" onclick="deleteTask(${element.time.valueOf()},'${element.label}')"><i class="fas fa-trash-alt"></i></button>
+
+</div>
+        
 </li>`
         }
         else{
-            return `<li>
+            return `<li  class="list-group-item">
         <span>${element.todo}</span>
-        <button class="task-done" onclick="TaskDone(${element.time.valueOf()},'${element.label}')">Done</button>
-        <button class="Delete-task" onclick="deleteTask(${element.time.valueOf()},'${element.label}')">Delete</button>
+        <br>
+        <div class="done-delete"> <button class="task-done btn btn-outline-danger" onmouseover="title = 'Click when task is completed.' "  onclick="TaskDone(${element.time.valueOf()},'${element.label}')"> <i class="far fa-check-square task-done"></i></button>
 
+        <button class="Delete-task btn btn-outline-danger" onmouseover="title='Click to delete task.'" onclick="deleteTask(${element.time.valueOf()},'${element.label}')"><i class="fas fa-trash-alt"></i></button>
+
+</div>
+     
 </li>`
         }
     }
@@ -326,8 +351,11 @@ function removeLabel(label){
 
 function renderDoneTask(){
     const done = doneTask.map(el=>{
-        return `<li>${el.todo}
-<button onclick="doneTaskDelete(${el.time.valueOf()})">Delete</button></li>`
+        return `<li  class="list-group-item">${el.todo}
+                    <div class="done-delete">
+                        <button class="Delete-task btn btn-outline-danger" onmouseover="title='Click to delete task.'" onclick="doneTaskDelete(${el.time.valueOf()})"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </li>`
     });
     doneTasks.innerHTML = done.join("")
 

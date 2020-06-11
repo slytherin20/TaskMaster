@@ -18,6 +18,24 @@ html,body,.container,.row{
     height:150px;
     width:150px;
 }
+.card{
+    width:100%;
+}
+.list-group-item{
+    padding:5px;
+}
+.done-delete{
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+    align:right;
+}
+button.task-done,button.Delete-task{
+    margin:5px;
+    align-self: flex-end;
+    align-items: flex-end;
+}
 @media screen and (max-width:700px){
     #side-col{
         display:none;

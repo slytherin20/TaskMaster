@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>TaskMaster</title>
+    <script src="https://kit.fontawesome.com/f23772ff12.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
     <!-- JS, Popper.js, and jQuery -->
@@ -69,14 +70,18 @@
                     <!-----------Showing To do list------>
                     <div id="main-col" class="col">
                         <h4 class="border-bottom border-dark">Pending Task</h4>
-                        <ul id="append-task">
+                        <div class="card">
+                        <ul id="append-task" class="list-group list-group-flush">
                         </ul>
+                        </div>
                     </div>
 
                     <!--------- Showing Done tasks ----------->
                     <div id="add-col" class="col">
                         <h4 class="border-bottom border-dark">Completed Task</h4>
-                        <ul id="taskdone"></ul>
+                        <div class="card" style="width: 18rem;">
+                        <ul id="taskdone" class="list-group list-group-flush"></ul>
+                        </div>
                     </div>
                 </div>
     </div>
